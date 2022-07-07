@@ -172,7 +172,7 @@
                                             <constraint firstItem="Fge-kC-IvO" firstAttribute="leading" secondItem="nh6-aT-vNo" secondAttribute="leading" id="svy-56-IpK"/>
                                             <constraint firstItem="MCI-6P-KQ9" firstAttribute="leading" secondItem="nh6-aT-vNo" secondAttribute="leading" id="uNL-WX-tA4"/>
                                             <constraint firstItem="f4L-j8-fHT" firstAttribute="top" secondItem="Fge-kC-IvO" secondAttribute="bottom" id="vwi-Wi-kqm"/>
-                                            <constraint firstItem="dyM-k0-ZoY" firstAttribute="top" secondItem="Hv3-Ax-uZC" secondAttribute="bottom" id="w9Q-CE-SR0"/>
+                                            <constraint firstItem="dyM-k0-ZoY" firstAttribute="top" secondItem="Hv3-Ax-uZC" secondAttribute="bottom" constant="-10" id="w9Q-CE-SR0"/>
                                             <constraint firstItem="Fge-kC-IvO" firstAttribute="top" secondItem="dyM-k0-ZoY" secondAttribute="bottom" id="xFN-tX-GqK"/>
                                         </constraints>
                                     </view>

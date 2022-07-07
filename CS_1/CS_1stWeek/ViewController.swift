@@ -42,7 +42,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setUpScrollView() {
-        adScrollView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: secondView.frame.height * 0.3)
+//        adScrollView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: secondView.frame.height * 0.3)
         adScrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * CGFloat(adImageNames.count), height: secondView.frame.height * 0.3)
         adScrollView.delegate = self
         adScrollView.alwaysBounceVertical = false
@@ -98,7 +98,7 @@ extension CALayer {
         color: UIColor = .black,
         alpha: Float = 0.5,
         x: CGFloat = 0,
-        y: CGFloat = 3,
+        y: CGFloat = 5,
         blur: CGFloat = 4
     ) {
         shadowColor = color.cgColor
