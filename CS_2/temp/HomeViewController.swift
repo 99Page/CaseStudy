@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import SwiftUI
 
 class HomeViewController: UIViewController {
     
     var greetingLabel1: UILabel!
     var deliversButton: UIButton!
     var wholeScrollView: UIScrollView!
+    var contentView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +37,7 @@ class HomeViewController: UIViewController {
 
     
 
-        let contentView = UIView()
+        contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         wholeScrollView.addSubview(contentView)
         NSLayoutConstraint.activate([
@@ -82,7 +84,7 @@ class HomeViewController: UIViewController {
         
         var configuration = UIButton.Configuration.filled()
         configuration.title = "회원 가입"
-        configuration.baseBackgroundColor = .green
+        configuration.baseBackgroundColor = UIColor.appColor(.StarBucksGreen)
         configuration.baseForegroundColor = .white
         configuration.cornerStyle = .capsule
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 20, bottom: 8, trailing: 20)
@@ -96,10 +98,10 @@ class HomeViewController: UIViewController {
         ])
         
         configuration.title = "로그인"
-        configuration.baseForegroundColor = .green
+        configuration.baseForegroundColor = UIColor.appColor(.StarBucksGreen)
         configuration.baseBackgroundColor = .white
         configuration.cornerStyle = .capsule
-        configuration.background.strokeColor = .green
+        configuration.background.strokeColor = UIColor.appColor(.StarBucksGreen)
         let loginButton = UIButton(configuration: configuration, primaryAction: nil)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.layer.borderColor = UIColor.red.cgColor
@@ -117,28 +119,43 @@ class HomeViewController: UIViewController {
             coffeImage.topAnchor.constraint(equalTo: loginLabel.topAnchor),
             coffeImage.leadingAnchor.constraint(equalTo: loginButton.trailingAnchor, constant: 10),
             coffeImage.trailingAnchor.constraint(equalTo: loginView.trailingAnchor, constant: -15),
-            coffeImage.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.23),
+            coffeImage.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.17),
             coffeImage.bottomAnchor.constraint(equalTo: signUpButton.bottomAnchor)
         ])
         
         let feedHstackView = setUpfeedHstackView()
-        contentView.addSubview(feedHstackView)
         NSLayoutConstraint.activate([
             feedHstackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             feedHstackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             feedHstackView.topAnchor.constraint(equalTo: loginView.bottomAnchor, constant: 15)
         ])
         
-        let testView = testView()
-        contentView.addSubview(testView)
+        let adVstackView = setUpAdVstackView()
         NSLayoutConstraint.activate([
-            testView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            testView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            testView.topAnchor.constraint(equalTo: feedHstackView.bottomAnchor),
-            testView.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 2),
-            testView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            adVstackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            adVstackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            adVstackView.topAnchor.constraint(equalTo: feedHstackView.bottomAnchor, constant: 15),
+            adVstackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         
+        let deliverButton = setUpdeliverButton()
+        NSLayoutConstraint.activate([
+            deliverButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -10),
+            deliverButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            deliverButton.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.09),
+            deliverButton.widthAnchor.constraint(equalTo: deliverButton.heightAnchor)
+        ])
+    
+//        let testView = testView()
+//        contentView.addSubview(testView)
+//        NSLayoutConstraint.activate([
+//            testView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+//            testView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+//            testView.topAnchor.constraint(equalTo: feedHstackView.bottomAnchor),
+//            testView.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 2),
+//            testView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+//        ])
+//
     }
     
     func testView() -> UIView {
@@ -155,6 +172,7 @@ class HomeViewController: UIViewController {
         stackH.axis = .horizontal
         stackH.spacing = 10
         stackH.distribution = .fillProportionally
+        contentView.addSubview(stackH)
         
         let letterImage = UIImageView()
         letterImage.translatesAutoresizingMaskIntoConstraints = false
@@ -175,24 +193,116 @@ class HomeViewController: UIViewController {
         stackH.addArrangedSubview(bellImage)
         
         NSLayoutConstraint.activate([
-            bellImage.trailingAnchor.constraint(equalTo: stackH.trailingAnchor),
-            bellImage.widthAnchor.constraint(equalTo: stackH.widthAnchor, multiplier: 0.08),
-            letterImage.widthAnchor.constraint(equalTo: stackH.widthAnchor, multiplier: 0.1)
+            bellImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            bellImage.widthAnchor.constraint(equalTo: stackH.widthAnchor, multiplier: 0.06),
+            letterImage.widthAnchor.constraint(equalTo: stackH.widthAnchor, multiplier: 0.1),
+            letterImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5)
         ])
         
         return stackH
     }
     
-    func setUPAdVstackView() -> UIStackView {
+    func setUpAdVstackView() -> UIStackView {
         let stackV = UIStackView()
         stackV.translatesAutoresizingMaskIntoConstraints = false
-        stackV.alignment = .center
+        stackV.alignment = .fill
         stackV.axis = .vertical
-        stackV.spacing = 10
-        stackV.distribution = .fillProportionally
+        stackV.spacing = 15
+        stackV.distribution = .equalSpacing
         
+        var isUsed = [Bool](repeating: false, count: 7)
+        var i: Int = 0
+        
+        contentView.addSubview(stackV)
+        
+        while i < 5 {
+            let randInt = Int.random(in: 0..<7)
+            
+            if (isUsed[randInt]) {
+                continue
+            }
+            
+            i += 1
+            isUsed[randInt] = true
+
+            switch randInt {
+            case 0:
+                let adImage1 = UIImageView()
+                adImage1.translatesAutoresizingMaskIntoConstraints = false
+                adImage1.image = UIImage(named: "StarbucksAd1")
+                stackV.addArrangedSubview(adImage1)
+                NSLayoutConstraint.activate([
+                    adImage1.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.3)
+                ])
+            case 1:
+                let adImage2 = UIImageView()
+                adImage2.translatesAutoresizingMaskIntoConstraints = false
+                adImage2.image = UIImage(named: "StarbucksAd2")
+                stackV.addArrangedSubview(adImage2)
+                NSLayoutConstraint.activate([
+                    adImage2.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.1)
+                ])
+                
+            case 2:
+                let adImage3 = UIImageView()
+                adImage3.translatesAutoresizingMaskIntoConstraints = false
+                adImage3.image = UIImage(named: "StarbucksAd3")
+                stackV.addArrangedSubview(adImage3)
+                NSLayoutConstraint.activate([
+                    adImage3.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.25)
+                ])
+            case 3:
+                let adImage4 = UIImageView()
+                adImage4.translatesAutoresizingMaskIntoConstraints = false
+                adImage4.image = UIImage(named: "StarbucksAd4")
+                stackV.addArrangedSubview(adImage4)
+                NSLayoutConstraint.activate([
+                    adImage4.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.6)
+                ])
+            case 4:
+                let adImage5 = UIImageView()
+                adImage5.translatesAutoresizingMaskIntoConstraints = false
+                adImage5.image = UIImage(named: "StarbucksAd5")
+                stackV.addArrangedSubview(adImage5)
+                NSLayoutConstraint.activate([
+                    adImage5.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.2)
+                ])
+            case 5:
+                let adImage6 = UIImageView()
+                adImage6.translatesAutoresizingMaskIntoConstraints = false
+                adImage6.image = UIImage(named: "StarbucksAd6")
+                stackV.addArrangedSubview(adImage6)
+                NSLayoutConstraint.activate([
+                    adImage6.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.2)
+                ])
+            case 6:
+                let adImage5 = UIImageView()
+                adImage5.translatesAutoresizingMaskIntoConstraints = false
+                adImage5.image = UIImage(named: "StarbucksAd7")
+                stackV.addArrangedSubview(adImage5)
+                NSLayoutConstraint.activate([
+                    adImage5.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.3)
+                ])
+            default:
+                print("Error in adImageView")
+            }
+        }
         return stackV
     }
     
-    
+    func setUpdeliverButton() -> UIButton {
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseBackgroundColor = UIColor.appColor(.StarBucksGreen)
+        configuration.baseForegroundColor = .white
+        configuration.image = UIImage(systemName: "bicycle")
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 20, bottom: 8, trailing: 20)
+        let button = UIButton(configuration: configuration, primaryAction: nil)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(button)
+        button.layer.cornerRadius = 35
+        button.clipsToBounds = true
+        
+        return button
+    }
 }

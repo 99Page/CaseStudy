@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1533A9F02877D206000E91C1 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1533A9EF2877D206000E91C1 /* ColorExtension.swift */; };
 		15CB36D6287598D100803D58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CB36D5287598D100803D58 /* AppDelegate.swift */; };
 		15CB36D8287598D100803D58 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CB36D7287598D100803D58 /* SceneDelegate.swift */; };
 		15CB36DA287598D100803D58 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CB36D9287598D100803D58 /* HomeViewController.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1533A9EF2877D206000E91C1 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		15CB36D2287598D100803D58 /* temp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = temp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15CB36D5287598D100803D58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15CB36D7287598D100803D58 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				15CB36DE287598D300803D58 /* Assets.xcassets */,
 				15CB36E0287598D300803D58 /* LaunchScreen.storyboard */,
 				15CB36E3287598D300803D58 /* Info.plist */,
+				1533A9EF2877D206000E91C1 /* ColorExtension.swift */,
 			);
 			path = temp;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				15CB36D6287598D100803D58 /* AppDelegate.swift in Sources */,
 				15CB370628759FF800803D58 /* MainTabbarController.swift in Sources */,
 				15CB36D8287598D100803D58 /* SceneDelegate.swift in Sources */,
+				1533A9F02877D206000E91C1 /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
