@@ -34,22 +34,51 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        callBackgroundImage(false)
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
+        callBackgroundImage(true)
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        callBackgroundImage(false)
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+        callBackgroundImage(true)
+    }
+    
+    func callBackgroundImage(_ bShow: Bool) {
+        let TAG_BG_IMAGE = -101
+        let backgroundView = window?.rootViewController?.view.window?.viewWithTag(TAG_BG_IMAGE)
+        
+        if bShow {
+            if backgroundView == nil {
+                let bgView = UIView()
+                bgView.frame = UIScreen.main.bounds
+                bgView.tag = TAG_BG_IMAGE
+                bgView.backgroundColor = UIColor.appColor(.StarBucksGreen)
+                let imageView = UIImageView()
+                imageView.image = UIImage(named: "BackgroundImage")
+                imageView.frame = UIScreen.main.bounds
+                bgView.addSubview(imageView)
+
+                window?.rootViewController?.view.window?.addSubview(bgView)
+            }
+        }
+        else {
+            if let backgroundView = backgroundView {
+                backgroundView.removeFromSuperview()
+            }
+        }
     }
 
 

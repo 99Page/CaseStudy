@@ -10,21 +10,44 @@ import SwiftUI
 
 class HomeViewController: UIViewController {
     
-    var greetingLabel1: UILabel!
+    var greetingLabel: UILabel!
     var deliversButton: UIButton!
     var wholeScrollView: UIScrollView!
     var contentView: UIView!
+    var loginView: UIView!
+    var feedHstackView: UIStackView!
+    var adVStackView: UIStackView!
+    var newsHeaderHStack: UIStackView!
+    var safeArea: UILayoutGuide!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        adVStackView.removeAllSubViews()
+        fillAdVStackView()
+    }
+    
     override func loadView() {
         view = UIView()
         view.backgroundColor = .white
-        let safeArea = view.safeAreaLayoutGuide
+        safeArea = view.safeAreaLayoutGuide
         
+        setUpWholeScrollView()
+        setUpContentView()
+        setUpGreetingLabel()
+        setUpLoginView()
+        setUpfeedHstackView()
+        setUpAdVstackView()
+        setUpdeliverButton()
+        setUpNewsHeader()
+        setUpNewsScroll()
+    }
+    
+    func setUpWholeScrollView() {
         wholeScrollView = UIScrollView()
         wholeScrollView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -34,9 +57,9 @@ class HomeViewController: UIViewController {
             wholeScrollView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             wholeScrollView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             wholeScrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)])
-
+    }
     
-
+    func setUpContentView() {
         contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
         wholeScrollView.addSubview(contentView)
@@ -45,26 +68,95 @@ class HomeViewController: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -15),
             contentView.topAnchor.constraint(equalTo: wholeScrollView.topAnchor, constant: 30),
             contentView.bottomAnchor.constraint(equalTo: wholeScrollView.bottomAnchor)])
-        
-        greetingLabel1 = UILabel()
-        greetingLabel1.translatesAutoresizingMaskIntoConstraints = false
-        greetingLabel1.text = "안녕하세요.\n스타벅스입니다."
-        greetingLabel1.font = UIFont.systemFont(ofSize: 23, weight: .medium)
-        greetingLabel1.numberOfLines = 2
-        greetingLabel1.textAlignment = .left
-        contentView.addSubview(greetingLabel1)
+    }
+    
+    func setUpGreetingLabel() {
+        greetingLabel = UILabel()
+        greetingLabel.translatesAutoresizingMaskIntoConstraints = false
+        greetingLabel.text = "안녕하세요.\n스타벅스입니다."
+        greetingLabel.font = UIFont.systemFont(ofSize: 23, weight: .medium)
+        greetingLabel.numberOfLines = 2
+        greetingLabel.textAlignment = .left
+        contentView.addSubview(greetingLabel)
         NSLayoutConstraint.activate([
-            greetingLabel1.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            greetingLabel1.topAnchor.constraint(equalTo: contentView.topAnchor)])
+            greetingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            greetingLabel.topAnchor.constraint(equalTo: contentView.topAnchor)])
+    }
+    
+    func testView() -> UIView {
+        let testView = UIView()
+        testView.translatesAutoresizingMaskIntoConstraints = false
+        testView.backgroundColor = .blue
+        return testView
+    }
+    
+    func setUpfeedHstackView() {
+ 
+        feedHstackView = UIStackView()
+        feedHstackView.translatesAutoresizingMaskIntoConstraints = false
+        feedHstackView.alignment = .center
+        feedHstackView.axis = .horizontal
+        feedHstackView.spacing = 10
+        feedHstackView.distribution = .fillProportionally
         
-        let loginView = UIView()
+        let letterImage = UIImageView()
+        letterImage.translatesAutoresizingMaskIntoConstraints = false
+        letterImage.image = UIImage(systemName: "envelope")
+        letterImage.tintColor = UIColor.gray
+        feedHstackView.addArrangedSubview(letterImage)
+        
+        let label = UILabel()
+        label.text = "What`s New"
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textAlignment = .left
+        feedHstackView.addArrangedSubview(label)
+        
+        let bellImage = UIImageView()
+        bellImage.translatesAutoresizingMaskIntoConstraints = false
+        bellImage.image = UIImage(systemName: "bell")
+        bellImage.tintColor = UIColor.gray
+        feedHstackView.addArrangedSubview(bellImage)
+        
+        contentView.addSubview(feedHstackView)
+    
+        
+        NSLayoutConstraint.activate([
+            bellImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            bellImage.widthAnchor.constraint(equalTo: feedHstackView.widthAnchor, multiplier: 0.06),
+            letterImage.widthAnchor.constraint(equalTo: feedHstackView.widthAnchor, multiplier: 0.1),
+            letterImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            feedHstackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            feedHstackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            feedHstackView.topAnchor.constraint(equalTo: loginView.bottomAnchor, constant: 15)
+        ])
+    }
+    
+    func setUpAdVstackView() {
+        adVStackView = UIStackView()
+        adVStackView.translatesAutoresizingMaskIntoConstraints = false
+        adVStackView.alignment = .fill
+        adVStackView.axis = .vertical
+        adVStackView.spacing = 15
+        adVStackView.distribution = .equalSpacing
+        contentView.addSubview(adVStackView)
+        NSLayoutConstraint.activate([
+            adVStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            adVStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            adVStackView.topAnchor.constraint(equalTo: feedHstackView.bottomAnchor, constant: 15),
+        ])
+        
+        fillAdVStackView()
+    }
+    
+    func setUpLoginView() {
+        loginView = UIView()
         loginView.translatesAutoresizingMaskIntoConstraints = false
         loginView.layer.borderColor = UIColor.gray.cgColor
         loginView.layer.borderWidth = 0.5
         
         contentView.addSubview(loginView)
         NSLayoutConstraint.activate([
-            loginView.topAnchor.constraint(equalTo: greetingLabel1.bottomAnchor, constant: 30),
+            loginView.topAnchor.constraint(equalTo: greetingLabel.bottomAnchor, constant: 30),
             loginView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             loginView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
@@ -122,98 +214,11 @@ class HomeViewController: UIViewController {
             coffeImage.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.17),
             coffeImage.bottomAnchor.constraint(equalTo: signUpButton.bottomAnchor)
         ])
-        
-        let feedHstackView = setUpfeedHstackView()
-        NSLayoutConstraint.activate([
-            feedHstackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            feedHstackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            feedHstackView.topAnchor.constraint(equalTo: loginView.bottomAnchor, constant: 15)
-        ])
-        
-        let adVstackView = setUpAdVstackView()
-        NSLayoutConstraint.activate([
-            adVstackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            adVstackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            adVstackView.topAnchor.constraint(equalTo: feedHstackView.bottomAnchor, constant: 15),
-            adVstackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
-        
-        let deliverButton = setUpdeliverButton()
-        NSLayoutConstraint.activate([
-            deliverButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -10),
-            deliverButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
-            deliverButton.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.09),
-            deliverButton.widthAnchor.constraint(equalTo: deliverButton.heightAnchor)
-        ])
-    
-//        let testView = testView()
-//        contentView.addSubview(testView)
-//        NSLayoutConstraint.activate([
-//            testView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-//            testView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-//            testView.topAnchor.constraint(equalTo: feedHstackView.bottomAnchor),
-//            testView.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 2),
-//            testView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-//        ])
-//
     }
     
-    func testView() -> UIView {
-        let testView = UIView()
-        testView.translatesAutoresizingMaskIntoConstraints = false
-        testView.backgroundColor = .blue
-        return testView
-    }
-    
-    func setUpfeedHstackView() -> UIStackView {
-        let stackH = UIStackView()
-        stackH.translatesAutoresizingMaskIntoConstraints = false
-        stackH.alignment = .center
-        stackH.axis = .horizontal
-        stackH.spacing = 10
-        stackH.distribution = .fillProportionally
-        contentView.addSubview(stackH)
-        
-        let letterImage = UIImageView()
-        letterImage.translatesAutoresizingMaskIntoConstraints = false
-        letterImage.image = UIImage(systemName: "envelope")
-        letterImage.tintColor = UIColor.gray
-        stackH.addArrangedSubview(letterImage)
-        
-        let label = UILabel()
-        label.text = "What`s New"
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.textAlignment = .left
-        stackH.addArrangedSubview(label)
-        
-        let bellImage = UIImageView()
-        bellImage.translatesAutoresizingMaskIntoConstraints = false
-        bellImage.image = UIImage(systemName: "bell")
-        bellImage.tintColor = UIColor.gray
-        stackH.addArrangedSubview(bellImage)
-        
-        NSLayoutConstraint.activate([
-            bellImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            bellImage.widthAnchor.constraint(equalTo: stackH.widthAnchor, multiplier: 0.06),
-            letterImage.widthAnchor.constraint(equalTo: stackH.widthAnchor, multiplier: 0.1),
-            letterImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5)
-        ])
-        
-        return stackH
-    }
-    
-    func setUpAdVstackView() -> UIStackView {
-        let stackV = UIStackView()
-        stackV.translatesAutoresizingMaskIntoConstraints = false
-        stackV.alignment = .fill
-        stackV.axis = .vertical
-        stackV.spacing = 15
-        stackV.distribution = .equalSpacing
-        
+    func fillAdVStackView() {
         var isUsed = [Bool](repeating: false, count: 7)
         var i: Int = 0
-        
-        contentView.addSubview(stackV)
         
         while i < 5 {
             let randInt = Int.random(in: 0..<7)
@@ -230,7 +235,7 @@ class HomeViewController: UIViewController {
                 let adImage1 = UIImageView()
                 adImage1.translatesAutoresizingMaskIntoConstraints = false
                 adImage1.image = UIImage(named: "StarbucksAd1")
-                stackV.addArrangedSubview(adImage1)
+                adVStackView.addArrangedSubview(adImage1)
                 NSLayoutConstraint.activate([
                     adImage1.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.3)
                 ])
@@ -238,7 +243,7 @@ class HomeViewController: UIViewController {
                 let adImage2 = UIImageView()
                 adImage2.translatesAutoresizingMaskIntoConstraints = false
                 adImage2.image = UIImage(named: "StarbucksAd2")
-                stackV.addArrangedSubview(adImage2)
+                adVStackView.addArrangedSubview(adImage2)
                 NSLayoutConstraint.activate([
                     adImage2.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.1)
                 ])
@@ -247,7 +252,7 @@ class HomeViewController: UIViewController {
                 let adImage3 = UIImageView()
                 adImage3.translatesAutoresizingMaskIntoConstraints = false
                 adImage3.image = UIImage(named: "StarbucksAd3")
-                stackV.addArrangedSubview(adImage3)
+                adVStackView.addArrangedSubview(adImage3)
                 NSLayoutConstraint.activate([
                     adImage3.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.25)
                 ])
@@ -255,7 +260,7 @@ class HomeViewController: UIViewController {
                 let adImage4 = UIImageView()
                 adImage4.translatesAutoresizingMaskIntoConstraints = false
                 adImage4.image = UIImage(named: "StarbucksAd4")
-                stackV.addArrangedSubview(adImage4)
+                adVStackView.addArrangedSubview(adImage4)
                 NSLayoutConstraint.activate([
                     adImage4.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.6)
                 ])
@@ -263,7 +268,7 @@ class HomeViewController: UIViewController {
                 let adImage5 = UIImageView()
                 adImage5.translatesAutoresizingMaskIntoConstraints = false
                 adImage5.image = UIImage(named: "StarbucksAd5")
-                stackV.addArrangedSubview(adImage5)
+                adVStackView.addArrangedSubview(adImage5)
                 NSLayoutConstraint.activate([
                     adImage5.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.2)
                 ])
@@ -271,7 +276,7 @@ class HomeViewController: UIViewController {
                 let adImage6 = UIImageView()
                 adImage6.translatesAutoresizingMaskIntoConstraints = false
                 adImage6.image = UIImage(named: "StarbucksAd6")
-                stackV.addArrangedSubview(adImage6)
+                adVStackView.addArrangedSubview(adImage6)
                 NSLayoutConstraint.activate([
                     adImage6.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.2)
                 ])
@@ -279,7 +284,7 @@ class HomeViewController: UIViewController {
                 let adImage5 = UIImageView()
                 adImage5.translatesAutoresizingMaskIntoConstraints = false
                 adImage5.image = UIImage(named: "StarbucksAd7")
-                stackV.addArrangedSubview(adImage5)
+                adVStackView.addArrangedSubview(adImage5)
                 NSLayoutConstraint.activate([
                     adImage5.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.3)
                 ])
@@ -287,22 +292,114 @@ class HomeViewController: UIViewController {
                 print("Error in adImageView")
             }
         }
-        return stackV
     }
     
-    func setUpdeliverButton() -> UIButton {
+    func setUpdeliverButton() {
         var configuration = UIButton.Configuration.filled()
         configuration.baseBackgroundColor = UIColor.appColor(.StarBucksGreen)
         configuration.baseForegroundColor = .white
         configuration.image = UIImage(systemName: "bicycle")
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 20, bottom: 8, trailing: 20)
-        let button = UIButton(configuration: configuration, primaryAction: nil)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        let deliverButton = UIButton(configuration: configuration, primaryAction: nil)
+        deliverButton.translatesAutoresizingMaskIntoConstraints = false
+        deliverButton.addTarget(self, action: #selector(nextView), for: .allTouchEvents)
         
-        contentView.addSubview(button)
-        button.layer.cornerRadius = 35
-        button.clipsToBounds = true
+        contentView.addSubview(deliverButton)
+        deliverButton.layer.cornerRadius = 35
+        deliverButton.clipsToBounds = true
         
-        return button
+        NSLayoutConstraint.activate([
+            deliverButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            deliverButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            deliverButton.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.09),
+            deliverButton.widthAnchor.constraint(equalTo: deliverButton.heightAnchor)
+        ])
+    }
+    
+    @objc
+    func nextView() {
+        let rootVC = DeliveryViewController()
+        
+        let nextVC = UINavigationController(rootViewController: rootVC)
+        nextVC.modalPresentationStyle = .fullScreen
+        present(nextVC, animated: true)
+    }
+     
+    func setUpNewsHeader() {
+        newsHeaderHStack = UIStackView()
+        newsHeaderHStack.translatesAutoresizingMaskIntoConstraints = false
+        newsHeaderHStack.alignment = .center
+        newsHeaderHStack.axis = .horizontal
+        newsHeaderHStack.spacing = 10
+        newsHeaderHStack.distribution = .fillProportionally
+        
+        let label = UILabel()
+        label.text = "What`s New"
+        label.font = UIFont.systemFont(ofSize: 23, weight: .semibold)
+        label.textAlignment = .left
+        newsHeaderHStack.addArrangedSubview(label)
+        
+        let seeAllLabel = UILabel()
+        seeAllLabel.text = "See all"
+        seeAllLabel.font = UIFont.systemFont(ofSize: 15)
+        seeAllLabel.textColor = UIColor.appColor(.StarBucksGreen)
+        seeAllLabel.textAlignment = .right
+        newsHeaderHStack.addArrangedSubview(seeAllLabel)
+        
+        contentView.addSubview(newsHeaderHStack)
+        NSLayoutConstraint.activate([
+            newsHeaderHStack.topAnchor.constraint(equalTo: adVStackView.bottomAnchor, constant: 37),
+            newsHeaderHStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            newsHeaderHStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+        ])
+    }
+    
+    func setUpNewsScroll() {
+        
+        let newsTitle = ["미션 e-스티커 추가 증정 이벤트", "22 서머 e-프리퀀시 이벤트 안내", "22서머 e-프리퀀시 증정품 안내",
+                         "22 서머 e-프리퀀시 예약시스템", "7월 스타벅스 일회용품 없는 날 캠페인"]
+        
+        let newsScroll = UIScrollView()
+        newsScroll.translatesAutoresizingMaskIntoConstraints = false
+        
+        let scrollHstack = UIStackView()
+        scrollHstack.translatesAutoresizingMaskIntoConstraints = false
+        scrollHstack.alignment = .fill
+        scrollHstack.axis = .horizontal
+        scrollHstack.spacing = 10
+        scrollHstack.distribution = .fillEqually
+        newsScroll.addSubview(scrollHstack)
+        NSLayoutConstraint.activate([
+            scrollHstack.topAnchor.constraint(equalTo: newsScroll.topAnchor),
+            scrollHstack.leadingAnchor.constraint(equalTo: newsScroll.leadingAnchor),
+            scrollHstack.bottomAnchor.constraint(equalTo: newsScroll.bottomAnchor)
+        ])
+        
+        let newsView1 = setUpNewsView()
+        scrollHstack.addSubview(newsView1)
+        
+        contentView.addSubview(newsScroll)
+        NSLayoutConstraint.activate([
+            newsScroll.topAnchor.constraint(equalTo: newsHeaderHStack.bottomAnchor),
+            newsScroll.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -200)
+        ])
+    }
+    
+    func setUpNewsView() -> UIStackView {
+        let stackV = UIStackView()
+        stackV.translatesAutoresizingMaskIntoConstraints = false
+        stackV.alignment = .fill
+        stackV.axis = .vertical
+        stackV.spacing = 5
+        stackV.distribution = .fillProportionally
+        
+        let titleLabel = UILabel()
+        titleLabel.text = "미션 e-스티커 추가 증정 이벤트"
+        titleLabel.font = UIFont.systemFont(ofSize: 15)
+        titleLabel.textAlignment = .left
+        stackV.addArrangedSubview(titleLabel)
+        
+        return stackV
     }
 }
+
