@@ -10,6 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var backgroundView: UIView?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -41,12 +42,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
         callBackgroundImage(true)
+//        callImage(false)
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
         callBackgroundImage(false)
+//        callImage(false)
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -54,11 +57,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
         callBackgroundImage(true)
+//        callImage(false)
     }
     
     func callBackgroundImage(_ bShow: Bool) {
         let TAG_BG_IMAGE = -101
-        let backgroundView = window?.rootViewController?.view.window?.viewWithTag(TAG_BG_IMAGE)
+        backgroundView = window?.rootViewController?.view.window?.viewWithTag(TAG_BG_IMAGE)
         
         if bShow {
             if backgroundView == nil {
@@ -79,6 +83,46 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 backgroundView.removeFromSuperview()
             }
         }
+    }
+    
+    func callImage() {
+        let TAG_BG_IMAGE = -101
+        backgroundView = window?.rootViewController?.view.window?.viewWithTag(TAG_BG_IMAGE)
+        
+        if backgroundView == nil {
+            let bgView = UIView()
+            bgView.frame = UIScreen.main.bounds
+            bgView.tag = TAG_BG_IMAGE
+            bgView.backgroundColor = UIColor.black
+            let imageView = UIImageView()
+            imageView.image = UIImage(named: "BackgroundImage")
+            imageView.frame = UIScreen.main.bounds
+            bgView.addSubview(imageView)
+            
+            var configuration = UIButton.Configuration.filled()
+            configuration.title = "종료하기"
+            configuration.baseBackgroundColor = UIColor.appColor(.StarBucksGreen)
+            configuration.baseForegroundColor = .white
+            configuration.cornerStyle = .capsule
+            configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 20, bottom: 8, trailing: 20)
+            let exitButton = UIButton(configuration: configuration, primaryAction: nil)
+            exitButton.translatesAutoresizingMaskIntoConstraints = false
+            exitButton.addTarget(self, action: #selector(dismissView), for: .allTouchEvents)
+            bgView.addSubview(exitButton)
+            NSLayoutConstraint.activate([
+                exitButton.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: -10),
+                exitButton.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -20)
+            ])
+            
+
+            window?.rootViewController?.view.window?.addSubview(bgView)
+        }
+    }
+    
+    @objc
+    func dismissView() {
+        guard let bgView = backgroundView else { return }
+        bgView.removeFromSuperview()
     }
 
 

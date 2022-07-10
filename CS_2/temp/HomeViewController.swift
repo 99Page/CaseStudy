@@ -26,9 +26,13 @@ class HomeViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        adVStackView.removeAllSubViews()
+        super.viewWillAppear(true)
         fillAdVStackView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        adVStackView.removeAllSubViews()
     }
     
     override func loadView() {
@@ -42,9 +46,9 @@ class HomeViewController: UIViewController {
         setUpLoginView()
         setUpfeedHstackView()
         setUpAdVstackView()
-        setUpdeliverButton()
         setUpNewsHeader()
         setUpNewsScroll()
+        setUpdeliverButton()
     }
     
     func setUpWholeScrollView() {
@@ -144,8 +148,6 @@ class HomeViewController: UIViewController {
             adVStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             adVStackView.topAnchor.constraint(equalTo: feedHstackView.bottomAnchor, constant: 15),
         ])
-        
-        fillAdVStackView()
     }
     
     func setUpLoginView() {
@@ -319,7 +321,6 @@ class HomeViewController: UIViewController {
     @objc
     func nextView() {
         let rootVC = DeliveryViewController()
-        
         let nextVC = UINavigationController(rootViewController: rootVC)
         nextVC.modalPresentationStyle = .fullScreen
         present(nextVC, animated: true)
@@ -356,50 +357,95 @@ class HomeViewController: UIViewController {
     
     func setUpNewsScroll() {
         
-        let newsTitle = ["미션 e-스티커 추가 증정 이벤트", "22 서머 e-프리퀀시 이벤트 안내", "22서머 e-프리퀀시 증정품 안내",
-                         "22 서머 e-프리퀀시 예약시스템", "7월 스타벅스 일회용품 없는 날 캠페인"]
+        let titles = ["22 서머 e-프리퀀시 이벤트 안내", "미션 e-스티커 추가 증정 이벤트",
+                    "22 서머 e-프리퀀시 예약시스템 안내", "7월 스타벅스 일회용컵 없는 날 캠페인",
+                    "7월 5일, 서머 픽 시트러스 블렌디드 출시", "프리퀀시 프렌즈 MD 소개",
+                    "Gift 배송하기 별 2배 적립 혜택"]
+        
+        let imageNames = ["News1", "News2", "News3", "News4", "News5", "News6", "News7"]
+        
+        let details = ["즐거운 여행 속 나에게 기대감과 즐거움을 주는 스타벅스의 여름 이야기",
+                       "우리의 즐거운 여행을 함께 할 22 서머 e-프리퀀시 선물을 소개합니다.",
+                       "e-프리퀀시 증정품을 빠르고 편리하게 만나보세요.",
+                       "매월 10일은 일회용 컵 없는 날!",
+        "PCIK YOUR DRINK 이벤트를 통해 탄생한 올해 여름 휴가지 원픽 음료",
+        "프리퀀시 프렌즈 상품으로 여름 휴가의 설렘을 더해보세요!",
+        "Gift 배송하기 주문 시 별★2배 적립"]
+        
         
         let newsScroll = UIScrollView()
         newsScroll.translatesAutoresizingMaskIntoConstraints = false
-        
+        newsScroll.showsHorizontalScrollIndicator = false
+        newsScroll.alwaysBounceVertical = false
+        newsScroll.alwaysBounceHorizontal = true
+
         let scrollHstack = UIStackView()
         scrollHstack.translatesAutoresizingMaskIntoConstraints = false
         scrollHstack.alignment = .fill
         scrollHstack.axis = .horizontal
         scrollHstack.spacing = 10
         scrollHstack.distribution = .fillEqually
+        
+
+        let newsView1 = UIView()
+        newsView1.translatesAutoresizingMaskIntoConstraints = false
+        newsView1.backgroundColor = .blue
+        
+        let newsView2 = UIView()
+        newsView2.translatesAutoresizingMaskIntoConstraints = false
+        newsView2.backgroundColor = .red
+
+        
         newsScroll.addSubview(scrollHstack)
-        NSLayoutConstraint.activate([
-            scrollHstack.topAnchor.constraint(equalTo: newsScroll.topAnchor),
-            scrollHstack.leadingAnchor.constraint(equalTo: newsScroll.leadingAnchor),
-            scrollHstack.bottomAnchor.constraint(equalTo: newsScroll.bottomAnchor)
-        ])
-        
-        let newsView1 = setUpNewsView()
-        scrollHstack.addSubview(newsView1)
-        
         contentView.addSubview(newsScroll)
+        
         NSLayoutConstraint.activate([
-            newsScroll.topAnchor.constraint(equalTo: newsHeaderHStack.bottomAnchor),
-            newsScroll.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -200)
+            newsScroll.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -15),
+            newsScroll.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 15),
+            newsScroll.topAnchor.constraint(equalTo: newsHeaderHStack.bottomAnchor, constant: 20),
+            newsScroll.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -100),
+            scrollHstack.leadingAnchor.constraint(equalTo: newsScroll.leadingAnchor, constant: 15),
+            scrollHstack.trailingAnchor.constraint(equalTo: newsScroll.trailingAnchor, constant: -15),
+            scrollHstack.topAnchor.constraint(equalTo: newsScroll.topAnchor),
+            scrollHstack.bottomAnchor.constraint(equalTo: newsScroll.bottomAnchor),
+            scrollHstack.heightAnchor.constraint(equalTo: newsScroll.heightAnchor)
         ])
-    }
-    
-    func setUpNewsView() -> UIStackView {
-        let stackV = UIStackView()
-        stackV.translatesAutoresizingMaskIntoConstraints = false
-        stackV.alignment = .fill
-        stackV.axis = .vertical
-        stackV.spacing = 5
-        stackV.distribution = .fillProportionally
         
-        let titleLabel = UILabel()
-        titleLabel.text = "미션 e-스티커 추가 증정 이벤트"
-        titleLabel.font = UIFont.systemFont(ofSize: 15)
-        titleLabel.textAlignment = .left
-        stackV.addArrangedSubview(titleLabel)
-        
-        return stackV
+        for i in 0..<imageNames.count {
+            let newsVStack = UIStackView()
+            scrollHstack.addArrangedSubview(newsVStack)
+            newsVStack.translatesAutoresizingMaskIntoConstraints = false
+            newsVStack.alignment = .fill
+            newsVStack.axis = .vertical
+            newsVStack.spacing = 10
+            newsVStack.distribution = .fill
+            
+            let imageView = UIImageView()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.image = UIImage(named: imageNames[i])
+            newsVStack.addArrangedSubview(imageView)
+            NSLayoutConstraint.activate([
+                imageView.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.21),
+                imageView.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 0.65)
+            ])
+            
+            
+            let titleLabel = UILabel()
+            titleLabel.text = titles[i]
+            titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+            titleLabel.textAlignment = .left
+            titleLabel.numberOfLines = 1
+            newsVStack.addArrangedSubview(titleLabel)
+            
+            let detailLabel = UILabel()
+            detailLabel.text = details[i]
+            detailLabel.font = UIFont.systemFont(ofSize: 15)
+            detailLabel.textColor = .gray
+            detailLabel.textAlignment = .left
+            detailLabel.numberOfLines = 2
+            newsVStack.addArrangedSubview(detailLabel)
+        }
+
     }
 }
 

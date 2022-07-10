@@ -15,8 +15,8 @@ class DeliveryViewController: UIViewController {
     override func loadView() {
         view = UIView()
         view.backgroundColor = .white
-        
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<", style: .plain, target: self, action: #selector(dismissSelf))
+        navigationItem.hidesBackButton = false
     }
     
     @objc
