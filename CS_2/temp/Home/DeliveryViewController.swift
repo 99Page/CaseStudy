@@ -6,7 +6,7 @@
 //
 
 import UIKit
-class DeliveryViewController: UIViewController {
+class DeliveryViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,7 +15,7 @@ class DeliveryViewController: UIViewController {
     override func loadView() {
         view = UIView()
         view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "<", style: .plain, target: self, action: #selector(dismissSelf))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(dismissSelf))
         navigationItem.hidesBackButton = false
     }
     

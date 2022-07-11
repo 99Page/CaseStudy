@@ -10,7 +10,7 @@ import SwiftUI
 
 class HomeViewController: UIViewController {
     
-    var greetingLabel: UILabel!
+    private var greetingLabel: UILabel!
     var deliversButton: UIButton!
     var wholeScrollView: UIScrollView!
     var contentView: UIView!
@@ -27,7 +27,9 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        fillAdVStackView()
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = false
+        fillAdVStackSubviews()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -39,6 +41,8 @@ class HomeViewController: UIViewController {
         view = UIView()
         view.backgroundColor = .white
         safeArea = view.safeAreaLayoutGuide
+        self.tabBarController?.navigationItem.titleView?.removeFromSuperview()
+        self.tabBarController?.navigationItem.title?.removeAll()
         
         setUpWholeScrollView()
         setUpContentView()
@@ -199,7 +203,9 @@ class HomeViewController: UIViewController {
         let loginButton = UIButton(configuration: configuration, primaryAction: nil)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.layer.borderColor = UIColor.red.cgColor
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         loginView.addSubview(loginButton)
+        
         NSLayoutConstraint.activate([
             loginButton.topAnchor.constraint(equalTo: signUpButton.topAnchor),
             loginButton.leadingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: 20)
@@ -218,7 +224,16 @@ class HomeViewController: UIViewController {
         ])
     }
     
-    func fillAdVStackView() {
+    @objc
+    private func loginButtonTapped() {
+        let vc = LoginViewController()
+        vc.idString = "StarbuckPageId"
+        vc.pwString = "StarbuckPW"
+        navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    func fillAdVStackSubviews() {
         var isUsed = [Bool](repeating: false, count: 7)
         var i: Int = 0
         
@@ -283,12 +298,13 @@ class HomeViewController: UIViewController {
                     adImage6.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.2)
                 ])
             case 6:
-                let adImage5 = UIImageView()
-                adImage5.translatesAutoresizingMaskIntoConstraints = false
-                adImage5.image = UIImage(named: "StarbucksAd7")
-                adVStackView.addArrangedSubview(adImage5)
+                let adImage7 = UIImageView()
+                adImage7.translatesAutoresizingMaskIntoConstraints = false
+                adImage7.image = UIImage(named: "StarbucksAd7")
+                adImage7.layer.shadowPath = self.customShadowPath(viewLayer: adImage7.layer, shadowHeight: 5).cgPath
+                adVStackView.addArrangedSubview(adImage7)
                 NSLayoutConstraint.activate([
-                    adImage5.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.3)
+                    adImage7.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.3)
                 ])
             default:
                 print("Error in adImageView")
@@ -307,7 +323,7 @@ class HomeViewController: UIViewController {
         deliverButton.addTarget(self, action: #selector(nextView), for: .allTouchEvents)
         
         contentView.addSubview(deliverButton)
-        deliverButton.layer.cornerRadius = 35
+        deliverButton.layer.cornerRadius = 30
         deliverButton.clipsToBounds = true
         
         NSLayoutConstraint.activate([
@@ -446,6 +462,31 @@ class HomeViewController: UIViewController {
             newsVStack.addArrangedSubview(detailLabel)
         }
 
+    }
+    
+    private func customShadowPath(viewLayer layer: CALayer,
+                                  shadowHeight: CGFloat) -> UIBezierPath {
+        let layerX = layer.bounds.origin.x
+        let layerY = layer.bounds.origin.y
+        let layerWidth = layer.bounds.size.width
+        let layerHeight = layer.bounds.size.height
+        
+        let path = UIBezierPath()
+        path.move(to: CGPoint.zero)
+        
+        path.addLine(to: CGPoint(x: layerX + layerWidth,
+                                 y: layerY))
+        path.addLine(to: CGPoint(x: layerX + layerWidth,
+                                 y: layerHeight + 20))
+        
+        path.addCurve(to: CGPoint(x: 0,
+                                  y: layerHeight),
+                      controlPoint1: CGPoint(x: layerX + layerWidth,
+                                             y: layerHeight),
+                      controlPoint2: CGPoint(x: layerX,
+                                             y: layerHeight))
+        
+        return path
     }
 }
 
