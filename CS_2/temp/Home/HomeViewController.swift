@@ -323,7 +323,7 @@ class HomeViewController: UIViewController {
         deliverButton.addTarget(self, action: #selector(nextView), for: .allTouchEvents)
         
         contentView.addSubview(deliverButton)
-        deliverButton.layer.cornerRadius = 30
+        deliverButton.layer.cornerRadius = 33
         deliverButton.clipsToBounds = true
         
         NSLayoutConstraint.activate([
