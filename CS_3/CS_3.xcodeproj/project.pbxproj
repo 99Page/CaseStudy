@@ -22,6 +22,7 @@
 		15105E0E287E80F9007D0522 /* MyCarrotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15105E0D287E80F9007D0522 /* MyCarrotViewController.swift */; };
 		15105E11287E863A007D0522 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15105E10287E863A007D0522 /* Extension.swift */; };
 		15105E17287E9837007D0522 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15105E16287E9837007D0522 /* ItemTableViewCell.swift */; };
+		1561454C2883963F0095CEE1 /* ItemInfo .swift in Sources */ = {isa = PBXBuildFile; fileRef = 1561454B2883963F0095CEE1 /* ItemInfo .swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		15105E0D287E80F9007D0522 /* MyCarrotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCarrotViewController.swift; sourceTree = "<group>"; };
 		15105E10287E863A007D0522 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		15105E16287E9837007D0522 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		1561454B2883963F0095CEE1 /* ItemInfo .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemInfo .swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 		15105E08287E809B007D0522 /* HomeViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1561454A288393890095CEE1 /* Model */,
 				15105DD7287E7EC8007D0522 /* HomeViewController.swift */,
 				15105E16287E9837007D0522 /* ItemTableViewCell.swift */,
 			);
@@ -191,6 +194,14 @@
 				15105E06287E808A007D0522 /* TownViewController.swift */,
 			);
 			path = Town;
+			sourceTree = "<group>";
+		};
+		1561454A288393890095CEE1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1561454B2883963F0095CEE1 /* ItemInfo .swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,6 +339,7 @@
 				15105E17287E9837007D0522 /* ItemTableViewCell.swift in Sources */,
 				15105E04287E7F34007D0522 /* TabbarController.swift in Sources */,
 				15105E07287E808A007D0522 /* TownViewController.swift in Sources */,
+				1561454C2883963F0095CEE1 /* ItemInfo .swift in Sources */,
 				15105E0C287E80E3007D0522 /* ChatViewController.swift in Sources */,
 				15105E0A287E80C6007D0522 /* NearMeViewController.swift in Sources */,
 				15105DD4287E7EC8007D0522 /* AppDelegate.swift in Sources */,

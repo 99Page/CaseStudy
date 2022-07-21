@@ -12,9 +12,12 @@ class TabbarControlelr: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UITabBar.appearance().tintColor = UIColor.white
-        UITabBar.appearance().backgroundColor = UIColor.DarkBackground
+        self.tabBar.isTranslucent = false
+        self.tabBar.barTintColor = UIColor.DarkBackground
+        self.tabBar.backgroundColor = UIColor.DarkBackground
+        self.tabBar.tintColor = UIColor.white
         self.tabBar.unselectedItemTintColor = UIColor.white
+        
         
         let vc1 = HomeViewController()
         let nav1 = UINavigationController(rootViewController: vc1)

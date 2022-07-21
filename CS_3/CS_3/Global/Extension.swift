@@ -9,4 +9,5 @@ import UIKit
 
 extension UIColor {
     static let DarkBackground = UIColor(named: "DarkBackground")
+    static let Orange = UIColor(named: "Orange")
 }
